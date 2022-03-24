@@ -1,0 +1,53 @@
+<ng-container *ngFor="let node of nodes;let nodeIndex = index">
+  <div class="container">
+    <div class="node-container" [ngClass]="{'node-hover':node.isFocused}" (mouseover)="node.isFocused = true"
+         (mouseleave)="node.isEditing ? node.isFocused = true : node.isFocused = false">
+      <ng-container *ngIf="!node.isEditing">
+        <div class="v-line inline" *ngIf="!isRoot && lineFlag">
+          <img src="assets/images/v-line.svg" class="line" alt="" />
+        </div>
+        <div class="v-line inline blank" *ngIf="!isRoot && !lineFlag">
+        </div>
+        <div class="v-line inline" *ngIf="!isRoot">
+          <img [src]="nodeIndex === (nodes.length-1) ?
+           'assets/images/v-line-branch.svg' : 'assets/images/v-line-branch-continues.svg'" class="line" alt="" />
+        </div>
+        <div class="icon inline">
+          <img [src]="node.icon == 'file' ? 'assets/images/file.svg' : 'assets/images/folder.svg'" class="icon"
+               alt="file">
+        </div>
+        <span class="name">{{node.name}}</span>
+        <ng-container *ngIf="node.isFocused">
+          <button class="small-button bigger invert-color" (click)="onAdd(nodeIndex)" *ngIf="node.type === 'folder'">
+            +
+          </button>
+          <button class="small-button smaller" (click)="onRemove(nodeIndex)"> 🗑</button>
+        </ng-container>
+        <span *ngIf="showWarning && removeProperties === nodeIndex" class="popup-warning">
+            <button type="button" (click)="forceRemove(removeProperties)"> Remove with children</button>
+            <button class="small-button" type="button" (click)="showWarning = false"> ✖ </button>
+          </span>
+      </ng-container>
+      <ng-container *ngIf="node.isEditing">
+        <ng-container *ngIf="node.type === 'unset'">
+          <button (click)="setType(nodeIndex,'folder')">Folder</button>
+          <button (click)="setType(nodeIndex,'file')">File</button>
+        </ng-container>
+        <ng-container *ngIf="node.type === 'folder'">
+          <form [formGroup]="form" (ngSubmit)="submit(nodeIndex)">
+            <input formControlName="name" [ngClass]="{'name-input':true,'name-input-error':!!form.get('name')?.errors}">
+            <button class="small-button invert-color" type="submit" [disabled]="!!form.get('name')?.errors"> ✓</button>
+            <button class="small-button" type="button" (click)="onRemove(nodeIndex)"> ✖</button>
+          </form>
+        </ng-container>
+        <ng-container *ngIf="node.type === 'file'">
+          <input type="file" (change)="changeListener($event, nodeIndex)">
+        </ng-container>
+      </ng-container>
+    </div>
+    <div *ngIf="!!node.children" class="child-nodes" >
+      <app-node [nodes]="node.children" [lineFlag]="nodeIndex !== (nodes.length - 1)" [parentIndex]="node.index" (removeEmitter)="onFocused($event)"></app-node>
+    </div>
+  </div>
+</ng-container>
+

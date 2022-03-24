@@ -1,1 +1,85 @@
 /* You can add global styles to this file, and also import other style files */
+.node-container {
+  height: 25px;
+  border-color: black;
+  display: flex;
+}
+
+.node-hover {
+  border-color: black;
+  border-radius: 6px;
+}
+
+.icon {
+  height: 25px;
+}
+
+v-line {
+  height: 25px;
+}
+
+.inline {
+  display: inline-block;
+  margin:1px;
+}
+
+.flex {
+  display: flex;
+}
+
+.content {
+  width: 100%;
+}
+
+.root-button {
+  padding: 10px;
+  background: black;
+  color: white;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.submit-button {
+
+}
+
+.popup-warning {
+}
+
+.small-button {
+  padding: 2px 2px 2px 2px;
+  font-size: small;
+  border: 2px black solid;
+  border-radius: 3px;
+  margin-right: 3px ;
+  margin-left: 3px ;
+  min-width: 30px;
+  min-height: 30px
+}
+
+.invert-color{
+  background-color: black;
+  color: white;
+}
+
+.bigger {
+  font-size: small;
+  font-weight: bold;
+}
+
+.smaller {
+  font-size: x-small;
+}
+
+.name-input {
+  min-height: 25px;
+}
+
+.name {
+  padding: 10px 10px 10px 10px;
+}
+
+.blank {
+  width: 25px;
+  height: 25px;
+}

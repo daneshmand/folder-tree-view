@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Node} from './node/node.model';
+import {generateRandomId} from './node/utils';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'folder-tree-view';
+
+  nodes: Node[] = [];
+
+  addRootNode(): void{
+    this.nodes.push(new Node('unset', generateRandomId(), this.nodes.length));
+  }
+
 }

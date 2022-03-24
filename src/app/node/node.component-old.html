@@ -1,0 +1,48 @@
+<ng-container *ngFor="let node of nodes;let nodeIndex = index">
+  <div class="row flex">
+    <div class="v-line inline"><img src="../assets/images/v-line-branch.svg" class="line" alt=""></div>
+    <div class="icon inline" *ngIf="node.type === 'file'"><img src="assets/images/file.svg" class="icon" alt="file">
+    </div>
+    <div class="icon inline" *ngIf="node.type === 'folder'"><img src="assets/images/folder.svg" class="icon" alt="folder"></div>
+    <div class="content inline">
+      <div class="container">
+        <div class="node-container" [ngClass]="{'node-hover':node.isFocused}" (mouseover)="node.isFocused = true"
+             (mouseleave)="node.isEditing ? node.isFocused = true : node.isFocused = false">
+          <ng-container *ngIf="!node.isEditing">
+            <span>{{node.name}}</span>
+            <ng-container *ngIf="node.isFocused">
+              <button class="small-button bigger invert-color" type="submit" (click)="onAdd(nodeIndex)"
+                      *ngIf="node.type === 'folder'"> +
+              </button>
+              <button class="small-button smaller" type="submit" (click)="remove(nodeIndex)"> 🗑</button>
+            </ng-container>
+            <span *ngIf="showWarning" class="popup-warning">
+            <button type="button" (click)="forceRemove(removeProperties)"> Remove with children</button>
+            <button type="button" (click)="showWarning = false"> cancel</button>
+          </span>
+          </ng-container>
+          <ng-container *ngIf="node.isEditing">
+            <ng-container *ngIf="node.type === 'unset'">
+              <button (click)="setType(nodeIndex,'folder')">Folder</button>
+              <button (click)="setType(nodeIndex,'file')">File</button>
+            </ng-container>
+            <ng-container *ngIf="node.type !== 'unset'">
+              <form [formGroup]="form" (ngSubmit)="submit(nodeIndex)">
+                <input formControlName="name"
+                       [ngClass]="{'name-input':true,'name-input-error':!!form.get('name')?.errors}">
+                <button class="small-button invert-color" type="submit" [disabled]="!!form.get('name')?.errors"> ✓
+                </button>
+                <button class="small-button" type="button" (click)="onRemove({index: nodeIndex, id: node.id})"> ✖
+                </button>
+              </form>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div *ngIf="!!node.children" class="child-nodes">
+          <app-node [nodes]="node.children" [parentIndex]="node.index" (removeEmitter)="onRemove($event)"></app-node>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
