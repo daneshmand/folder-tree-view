@@ -3,16 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { NodeComponent } from './node/node.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { TransformToJsonPipe } from './transform-to-json.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NodeComponent
+    NodeComponent,
+    TransformToJsonPipe,
   ],
     imports: [
         BrowserModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

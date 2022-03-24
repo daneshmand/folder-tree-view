@@ -17,7 +17,14 @@
 v-line {
   height: 25px;
 }
-
+.v-line-bg {
+    background-image: url("assets/images/v-line.svg");
+    background-repeat: repeat-y;
+    min-width: 25px;
+}
+.child-nodes {
+    display: flex;
+}
 .inline {
   display: inline-block;
   margin:1px;
@@ -37,10 +44,6 @@ v-line {
   color: white;
   border-radius: 6px;
   margin-bottom: 20px;
-}
-
-.submit-button {
-
 }
 
 .popup-warning {
