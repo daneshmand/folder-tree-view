@@ -32,7 +32,7 @@ describe('NodeComponent', () => {
         component.nodes.push(node);
         fixture.whenStable().then(
             () => {
-                expect(component.nodes.length).toBeGreaterThanOrEqual(1);
+                expect(component.nodes?.length).toBeGreaterThanOrEqual(1);
             }
         );
     });
@@ -49,7 +49,7 @@ describe('NodeComponent', () => {
         component.nodes.push(node);
         fixture.whenStable().then(() => {
             const name = fixture.debugElement.query(By.css('.name'));
-            expect(name.nativeElement.textContent).toContain('test');
+            expect(name?.nativeElement?.textContent).toContain('test');
         });
     });
     it('should show file', () => {
@@ -66,7 +66,7 @@ describe('NodeComponent', () => {
         component.nodes.push(node);
         fixture.whenStable().then(() => {
             const image = fixture.debugElement.query(By.css(id));
-            expect(image.nativeElement.getAttribute('src')).toEqual('assets/images/file.svg');
+            expect(image?.nativeElement?.getAttribute('src')).toEqual('assets/images/file.svg');
         });
     });
     it('should show folder', () => {
@@ -83,7 +83,7 @@ describe('NodeComponent', () => {
         component.nodes.push(node);
         fixture.whenStable().then(() => {
             const image = fixture.debugElement.query(By.css(id));
-            expect(image.nativeElement.getAttribute('src')).toEqual('assets/images/folder.svg');
+            expect(image?.nativeElement?.getAttribute('src')).toEqual('assets/images/folder.svg');
         });
     });
     it('should name be required', () => {
@@ -91,7 +91,7 @@ describe('NodeComponent', () => {
         const component = fixture.componentInstance;
         component.form.controls.name.setValue('');
         fixture.whenStable().then(() => {
-            expect(component.form.valid).toBeFalse();
+            expect(component?.form?.valid).toBeFalse();
         });
     });
     it('should remove node', () => {
@@ -107,7 +107,7 @@ describe('NodeComponent', () => {
         component.nodes.push(node);
         fixture.whenStable().then(() => {
             component.onRemove(1);
-            expect(component.nodes.length).toEqual(0);
+            expect(component?.nodes?.length).toEqual(0);
         });
     });
     it('should show child node name', () => {
@@ -129,7 +129,7 @@ describe('NodeComponent', () => {
         component.nodes.push(node);
         fixture.whenStable().then(() => {
             const name = fixture.debugElement.queryAll(By.css('.name'))[1];
-            expect(name.nativeElement.textContent).toContain('testChild');
+            expect(name?.nativeElement?.textContent).toContain('testChild');
         });
     });
 });
