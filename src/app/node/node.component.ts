@@ -33,6 +33,10 @@ export class NodeComponent implements OnInit, OnDestroy {
         this.resetFormSubscriber = this.nodeService.resetFormTrigger$.subscribe(
             () => this.form.reset()
         );
+        const node = new Node('folder', generateRandomId(), 0, null, {name: 'test', children: [], icon: 'folder'});
+        node.isEditing = false;
+        node.isFocused = true;
+        this.nodes.push(node);
     }
     ngOnDestroy(): void {
         this.resetFormSubscriber?.unsubscribe();

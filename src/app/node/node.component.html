@@ -9,13 +9,13 @@
                          class="line" alt=""/>
                 </div>
                 <div class="icon inline">
-                    <img [src]="node.icon == 'file' ? 'assets/images/file.svg' : 'assets/images/folder.svg'"
+                    <img [id]="node.id + '-icon-img'" [src]="node.icon == 'file' ? 'assets/images/file.svg' : 'assets/images/folder.svg'"
                          class="icon"
-                         alt="file">
+                         [alt]="node.icon">
                 </div>
                 <span class="name">{{node.name}}</span>
                 <ng-container *ngIf="node.isFocused">
-                    <button class="small-button bigger invert-color" (click)="onAdd(nodeIndex, node.id)"
+                    <button [id]="node.id + '-add-button'" class="small-button bigger invert-color" (click)="onAdd(nodeIndex, node.id)"
                             *ngIf="node.type === 'folder'">
                         +
                     </button>
@@ -32,7 +32,7 @@
                     <button (click)="setType(nodeIndex,'file')">File</button>
                 </ng-container>
                 <ng-container *ngIf="node.type === 'folder'">
-                    <form [formGroup]="form" (ngSubmit)="submit(nodeIndex)">
+                    <form [formGroup]="form" [id]="node.id + '-form'" (ngSubmit)="submit(nodeIndex)">
                         <input formControlName="name"
                                [ngClass]="{'name-input':true,'name-input-error':!!form.get('name')?.errors}">
                         <button class="small-button invert-color" type="submit" [disabled]="!!form.get('name')?.errors">

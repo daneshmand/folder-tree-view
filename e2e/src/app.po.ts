@@ -6,6 +6,9 @@ export class AppPage {
   }
 
   async getTitleText(): Promise<string> {
-    return element(by.css('app-root .content span')).getText();
+    return element(by.css('app-root')).getText();
   }
+    async getRootButton(): Promise<string> {
+        return element(by.css('.text-area')).getText();
+    }
 }
